@@ -2,10 +2,10 @@ class Cell():
 
     parent = None
     children = []
-    g = float('inf')
-    h = None
+    g = float('inf') # cost for this path so far
+    h = None # estimated remaining cost for this path
     solution = False
-    cost = 1
+    cost = 1 # can be changed for later implementations
 
     def f(self):
         return self.g + self.h
@@ -14,7 +14,7 @@ class Cell():
         self.x = x
         self.y = y
         self.wall = wall
-        #self.state = int(str(x)+str(y))
+        #self.state = int(str(x)+str(y)) # not used
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
@@ -40,11 +40,11 @@ def build_children(cell, possible_cells):
 
 def a_star_loop(open_nodes, closed_nodes, cells):
     done = False
-    counter = 0
+    #counter = 0
     while not done:
-        counter += 1
+        #counter += 1
         if not open_nodes:
-            break
+            break # failure
         current = open_nodes.pop(0)
         #print(current)
         closed_nodes.append(current)
@@ -52,7 +52,7 @@ def a_star_loop(open_nodes, closed_nodes, cells):
             return True
         build_children(current, cells)
         for child in current.children:
-            if child not in open_nodes and child not in closed_nodes:
+            if child not in open_nodes and child not in closed_nodes: # i.e have we already checked this cell
                 attach_and_evaluate(current, child)
                 open_nodes.append(child)
                 open_nodes.sort(key= lambda x: x.h)
