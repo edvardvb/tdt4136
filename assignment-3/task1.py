@@ -1,20 +1,24 @@
+"""
+Produces a simple visualisation of the shortest path from A to B
+for boards 1-1 to 1-4, using my own implementation of the a*-algorithm.
+"""
+
 class Cell:
-
-    parent = None
-    children = []
-    g = float('inf')  # cost for this path so far
-    h = None  # estimated remaining cost for this path
-    solution = False
-    cost = 1  # can be changed for later implementations
-
-    def f(self):
-        return self.g + self.h
 
     def __init__(self, x, y, wall):
         self.x = x
         self.y = y
         self.wall = wall
+        self.children = []
+        self.parent = None
+        self.g = float('inf')  # cost for this path so far
+        self.h = None  # estimated remaining cost for this path
+        self.solution = False
+        self.cost = 1  # can be changed for later implementations
         # self.state = int(str(x)+str(y)) # not used
+
+    def f(self):
+        return self.g + self.h
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
