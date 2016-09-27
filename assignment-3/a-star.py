@@ -1,11 +1,11 @@
-class Cell():
+class Cell:
 
     parent = None
     children = []
-    g = float('inf') # cost for this path so far
-    h = None # estimated remaining cost for this path
+    g = float('inf')  # cost for this path so far
+    h = None  # estimated remaining cost for this path
     solution = False
-    cost = 1 # can be changed for later implementations
+    cost = 1  # can be changed for later implementations
 
     def f(self):
         return self.g + self.h
@@ -14,7 +14,7 @@ class Cell():
         self.x = x
         self.y = y
         self.wall = wall
-        #self.state = int(str(x)+str(y)) # not used
+        # self.state = int(str(x)+str(y)) # not used
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
@@ -36,41 +36,34 @@ def build_children(cell, possible_cells):
                 cell.children.append(c)
 
 
-
-
 def a_star_loop(open_nodes, closed_nodes, cells):
     done = False
-    #counter = 0
     while not done:
-        #counter += 1
         if not open_nodes:
-            break # failure
+            break  # failure
         current = open_nodes.pop(0)
-        #print(current)
         closed_nodes.append(current)
         if current.solution:
             return True
         build_children(current, cells)
         for child in current.children:
-            if child not in open_nodes and child not in closed_nodes: # i.e have we already checked this cell
+            if child not in open_nodes and child not in closed_nodes:  # i.e have we already checked this cell
                 attach_and_evaluate(current, child)
                 open_nodes.append(child)
-                open_nodes.sort(key= lambda x: x.h)
-
+                open_nodes.sort(key=lambda x: x.h)
             elif current.g + child.cost < child.g:
                 attach_and_evaluate(current, child)
                 if child in closed_nodes:
                     propagate(child)
-        #print(open_nodes, closed_nodes)
-        #print([c.h for c in open_nodes])
-    #print(counter)
     if not done:
         return False
+
 
 def attach_and_evaluate(p, c):
     c.parent = p
     c.g = p.g + c.cost
     c.h = abs(goal.x - c.x) + abs(goal.y - c.y)
+
 
 def propagate(cell):
     for child in cell.children:
@@ -79,12 +72,13 @@ def propagate(cell):
             child.g = cell.g + child.cost
             propagate(child)
 
+board = input('filename: ')
 cells = []
 closed_nodes = []
 open_nodes = []
 start = None
 goal = None
-f = open('board-1-1.txt', 'r')
+f = open(board, 'r')
 lines = [line.strip('\n') for line in f]
 for i in range(len(lines)):
     for j in range(len(lines[i])):
@@ -106,5 +100,15 @@ start.h = abs(goal.x - start.x) + abs(goal.y - start.y)
 start.g = 0
 open_nodes.append(start)
 
-print(a_star_loop(open_nodes, closed_nodes, cells))
+a_star_loop(open_nodes, closed_nodes, cells)
+lines = [line.strip('\n') for line in open(board, 'r')]
+cell = goal
+print('\n')
+while cell.parent != start:
+    row = list(lines[cell.parent.y])
+    row[cell.parent.x] = 'O'
+    lines[cell.parent.y] = ''.join(row)
+    cell = cell.parent
 
+lines = '\n'.join(lines)
+print(lines)
