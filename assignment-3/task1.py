@@ -104,15 +104,17 @@ start.h = abs(goal.x - start.x) + abs(goal.y - start.y)
 start.g = 0
 open_nodes.append(start)
 
-a_star_loop(open_nodes, closed_nodes, cells)
-lines = [line.strip('\n') for line in open(board, 'r')]
-cell = goal
-print('\n')
-while cell.parent != start:
-    row = list(lines[cell.parent.y])
-    row[cell.parent.x] = 'O'
-    lines[cell.parent.y] = ''.join(row)
-    cell = cell.parent
+if (a_star_loop(open_nodes, closed_nodes, cells)):
+    lines = [line.strip('\n') for line in open(board, 'r')]
+    cell = goal
+    print('\n')
+    while cell.parent != start:
+        row = list(lines[cell.parent.y])
+        row[cell.parent.x] = 'O'
+        lines[cell.parent.y] = ''.join(row)
+        cell = cell.parent
 
-lines = '\n'.join(lines)
-print(lines)
+    lines = '\n'.join(lines)
+    print(lines)
+else:
+    print('Failed')
