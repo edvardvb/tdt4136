@@ -65,7 +65,7 @@ def a_star_loop(open_nodes, closed_nodes, cells):
 def attach_and_evaluate(p, c):
     c.parent = p
     c.g = p.g + c.cost
-    c.h = (abs(goal.x - c.x) + abs(goal.y - c.y))*c.cost
+    c.h = (abs(goal.x - c.x) + abs(goal.y - c.y))*(c.cost/weight)
 
 
 def propagate(cell):
@@ -81,6 +81,7 @@ closed_nodes = []
 open_nodes = []
 start = None
 goal = None
+counters = {'w': 0, 'm': 0, 'f': 0, 'g': 0, 'r': 0}
 f = open(board, 'r')
 lines = [line.strip('\n') for line in f]
 for i in range(len(lines)):
@@ -88,23 +89,30 @@ for i in range(len(lines)):
         if lines[i][j] == 'w':
             c = Cell(j, i, 100, 'w')
             cells.append(c)
+            counters['w'] += 1
         elif lines[i][j] == 'm':
             c = Cell(j, i, 50, 'm')
             cells.append(c)
+            counters['m'] += 1
         elif lines[i][j] == 'f':
             c = Cell(j, i, 10, 'f')
             cells.append(c)
+            counters['f'] += 1
         elif lines[i][j] == 'g':
             c = Cell(j, i, 5, 'g')
             cells.append(c)
+            counters['g'] += 1
         elif lines[i][j] == 'r':
             c = Cell(j, i, 1, 'r')
             cells.append(c)
+            counters['r'] += 1
         elif lines[i][j] == 'A':
             start = Cell(j, i, 0, 'start')
         elif lines[i][j] == 'B':
             goal = Cell(j, i, 0, 'goal')
             cells.append(goal)
+weight = (counters['w']*100 + counters['m']*50 + counters['f']*10 + counters['g']*5 + counters['r'])\
+    /sum(counters.values())
 
 goal.solution = True
 goal.h = 0
