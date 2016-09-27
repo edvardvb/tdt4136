@@ -2,6 +2,7 @@
 Produces a simple visualisation of the shortest path from A to B
 for boards 1-1 to 1-4, using my own implementation of the a*-algorithm.
 """
+from GUI import draw_path
 
 class Cell:
 
@@ -107,14 +108,17 @@ open_nodes.append(start)
 if a_star_loop(open_nodes, closed_nodes, cells):
     lines = [line.strip('\n') for line in open(board, 'r')]
     cell = goal
+    height = len(lines)
+    width = 0
     print('\n')
     while cell.parent != start:
         row = list(lines[cell.parent.y])
+        width = len(row)
         row[cell.parent.x] = 'O'
         lines[cell.parent.y] = ''.join(row)
         cell = cell.parent
-
     lines = '\n'.join(lines)
     print(lines)
+    draw_path(lines, width, height)
 else:
     print('Failed')
