@@ -104,7 +104,7 @@ start.h = abs(goal.x - start.x) + abs(goal.y - start.y)
 start.g = 0
 open_nodes.append(start)
 
-if (a_star_loop(open_nodes, closed_nodes, cells)):
+if a_star_loop(open_nodes, closed_nodes, cells):
     lines = [line.strip('\n') for line in open(board, 'r')]
     cell = goal
     print('\n')
