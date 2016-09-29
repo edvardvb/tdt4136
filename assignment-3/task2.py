@@ -110,7 +110,7 @@ Also maintains a dictionary with the amount of each type of cell, used to calcul
 cost of all cells in the grid. This is used for weighting purposes in the heuristic function.
 Sets some starting parameters for the start and goal.
 """
-board = input('filename: ')
+board = input('filename: ')  # i.e. 'board-2-1.txt' etc
 cells = []
 closed_nodes = []
 open_nodes = []

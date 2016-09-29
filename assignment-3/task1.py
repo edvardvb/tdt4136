@@ -105,7 +105,7 @@ def propagate(cell):
 This bit simply builds the grid, iterating over the board to create all cells.
 Sets some starting parameters for the start and goal.
 """
-board = input('filename: ')
+board = input('filename: ')  # i.e. 'board-1-1.txt' etc
 cells = []
 closed_nodes = []
 open_nodes = []
