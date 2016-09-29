@@ -4,6 +4,7 @@ for boards 1-1 to 1-4, using my own implementation of the a*-algorithm.
 """
 from GUI import draw_path
 
+
 class Cell:
     """
     One 'node' or element in the given string/board.
@@ -53,7 +54,7 @@ def build_children(cell, possible_cells):
 
 def a_star_loop(open_nodes, closed_nodes, cells):
     """
-    Finds a pretty optimal path, but not always the best one :))
+    Finds the optimal path
 
     :param open_nodes: Essentially just a list containing the starting cell, but this is populated as the algorithm runs.
     :param closed_nodes: As above, empty when starting.
