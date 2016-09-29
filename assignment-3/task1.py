@@ -74,7 +74,7 @@ def a_star_loop(open_nodes, closed_nodes, cells):
             if child not in open_nodes and child not in closed_nodes:  # i.e 'Have we already checked this cell?'
                 attach_and_evaluate(current, child)
                 open_nodes.append(child)
-                open_nodes.sort(key=lambda x: x.h)  # sort by lowest estimated cost
+                open_nodes.sort(key=lambda x: x.f())  # sort by lowest estimated cost
             elif current.g + child.cost < child.g:
                 attach_and_evaluate(current, child)
                 if child in closed_nodes:
