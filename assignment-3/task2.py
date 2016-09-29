@@ -3,6 +3,7 @@ Produces a simple visualisation of the shortest path from A to B
 for boards 1-1 to 1-4, using my own implementation of the a*-algorithm.
 """
 from GUI_2 import draw_path
+from math import sqrt
 
 class Cell:
 
@@ -66,7 +67,7 @@ def a_star_loop(open_nodes, closed_nodes, cells):
 def attach_and_evaluate(p, c):
     c.parent = p
     c.g = p.g + c.cost
-    c.h = (abs(goal.x - c.x) + abs(goal.y - c.y))*(c.cost/weight)
+    c.h = sqrt((goal.x - c.x)**2 + (goal.y - c.y)**2)*(c.cost/weight)
 
 
 def propagate(cell):
@@ -117,7 +118,7 @@ weight = (counters['w']*100 + counters['m']*50 + counters['f']*10 + counters['g'
 
 goal.solution = True
 goal.h = 0
-start.h = abs(goal.x - start.x) + abs(goal.y - start.y)
+start.h = sqrt((goal.x - start.x)**2 + (goal.y - start.y)**2)
 start.g = 0
 open_nodes.append(start)
 
@@ -138,7 +139,7 @@ if a_star_loop(open_nodes, closed_nodes, cells):
 
     lines = '\n'.join(lines)
     print(lines)
-    draw_path(lines, width, height)
     print(total)
+    draw_path(lines, width, height)
 else:
     print('Failed')
