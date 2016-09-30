@@ -55,7 +55,7 @@ def build_children(cell, possible_cells):
 
 def three_in_one(open_nodes, closed_nodes, cells, alg_type="A"):
     """
-    Finds a pretty optimal path, but not always the best one :))
+    Finds a path using one of three algorithms.
 
     :param open_nodes: Essentially just a list containing the starting cell, but this is populated as the algorithm runs.
     :param closed_nodes: As above, empty when starting.
@@ -83,7 +83,7 @@ def three_in_one(open_nodes, closed_nodes, cells, alg_type="A"):
                     open_nodes.sort(key=lambda x: x.g)  # sort by lowest estimated g cost
                     print('Sorting by g')
                 else: print('Not sorting')
-                #otherwise this is a BFS implmentation, and we are not supposed to sort the list
+                # Otherwise this is a BFS implementation, and we are not supposed to sort the list
                     
             elif current.g + child.cost < child.g:
                 attach_and_evaluate(current, child)
@@ -115,7 +115,7 @@ def propagate(cell):
 This bit simply builds the grid, iterating over the board to create all cells.
 Sets some starting parameters for the start and goal.
 """
-board = "board-1-1.txt"
+board = input('filename: ')  # i.e. 'board-1-1.txt' etc
 cells = []
 closed_nodes = []
 open_nodes = []
@@ -148,7 +148,7 @@ open_nodes.append(start)
 Runs the algorithm, and then traces back from goal to start using Cell.parent to find the path that was chosen.
 Prints a board with the path marked, and sends the string to Tkinter for drawing.
 """
-if three_in_one(open_nodes, closed_nodes, cells, "dijkstra"):
+if three_in_one(open_nodes, closed_nodes, cells, input('A, BFS or dijkstra: ')):
     lines = [line.strip('\n') for line in open(board, 'r')]
     cell = goal
     height = len(lines)
