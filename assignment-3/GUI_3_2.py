@@ -2,7 +2,7 @@ from tkinter import *
 
 def draw_path(s, w, h, open_nodes, closed_nodes):
     master = Tk()
-    rec_size = 50
+    rec_size = 40
     offset = 10
 
     w = Canvas(master, width=w*rec_size, height=h*rec_size)
