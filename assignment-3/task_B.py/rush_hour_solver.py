@@ -1,7 +1,7 @@
 """
 This is a solution to the Rush Hour Puzzle using A*. The algorithm takes in a start state
 and performs an A* search using all possible moves from the start state, the possible moves
-form these states, and so on.
+from these states, and so on.
 """
 
 import math
@@ -216,7 +216,7 @@ expert = [
         [0,0,5,2],
         [0,1,0,2],
         [0,2,3,2],
-        [0,3,4,3],
+        [0,3,4,2],
         [1,0,3,2],
         [1,2,4,2],
         [1,3,0,3],
@@ -225,7 +225,7 @@ expert = [
         [1,5,2,2],
         [1,5,4,2]
         ]
-start = State(0, medium)
+start = State(0, expert)
 
 
 def a_star(start):
