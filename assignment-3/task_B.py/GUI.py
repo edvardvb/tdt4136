@@ -1,13 +1,15 @@
 from tkinter import *
 
-def draw_path(state, rec_size, fill_value):
+rec_size = 100
+
+def draw_path(state, fill_value):
     master = Tk()
     w = Canvas(master, width=6*rec_size, height=6*rec_size)
 
     for y, row in enumerate(state.board):
         for x, value in enumerate(row):
             if value == 0: color = 'lawn green'
-            elif value == fill_value: color = 'white'
+            elif value == fill_value: color = ''
             elif value == 1: color = 'salmon'
             elif value == 2: color = 'royal blue'
             elif value == 3: color = 'deep pink'
@@ -20,10 +22,11 @@ def draw_path(state, rec_size, fill_value):
             elif value == 10: color = 'light sea green'
             elif value == 11: color = 'chocolate'
             elif value == 12: color = 'medium purple'
-            else: color = 'light sky blue'
+            else: color = 'white'
 
-            w.create_rectangle(x*rec_size, y*rec_size, \
-                    x*rec_size + rec_size, y*rec_size + rec_size, fill=color)
+            if color != '':
+                w.create_rectangle(x*rec_size, y*rec_size, \
+                        x*rec_size + rec_size, y*rec_size + rec_size, fill=color, outline=color)
 
     w.pack()
     master.mainloop()

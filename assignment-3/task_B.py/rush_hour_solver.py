@@ -1,10 +1,12 @@
 """
-This is a solution to the Rush Hour Puzzle using A*. The algorithm takes in a start state
-and performs an A* search using all possible moves from the start state, the possible moves
-from these states, and so on.
+This is a solution to the Rush Hour Puzzle using A*.
+The objective is to get the 0th vehcle (green in the GUI) to the goal position [4,2].
+The algorithm takes in a start state and performs an A* search using all possible moves
+from the start state, the possible moves from these states, and so on.
 """
 
 import math
+#from Improved_GUI import draw_path
 from GUI import draw_path
 from tkinter import *
 import time
@@ -18,8 +20,6 @@ fill_value = 'x'
 #Denotes how often the GUI should refresh to show new moves
 #(Currently not used, but once the GUI updates in the same window this will be needed.
 GUI_seconds = 1
-#Denotes the size of the squares in the GUI
-rec_size = 50
 
 class State:
     """
@@ -227,7 +227,6 @@ expert = [
         ]
 start = State(0, expert)
 
-
 def a_star(start):
     """
     Perform an A* search from the start state. The children of the start state will be
@@ -274,7 +273,7 @@ def a_star(start):
 
     return False, current
 
-#Solves the puzlle and returns weather it was solvable in the 'solved' boolean
+#Solves the puzlle and returns whether it was solvable in the 'solved' boolean
 solved, final_state = a_star(start)
 
 #Chain backwards through the parents, starting at the final stage
@@ -289,11 +288,11 @@ if solved:
 
     #Print moves in both textual and GUI form
     reversed_seq = list(reversed(seq))
-    #draw_path(reversed_seq, rec_size, fill_value)
+    #draw_path(reversed_seq, fill_value)
     cost = 0
     for state in reversed_seq:
         #print(state)
-        draw_path(state, rec_size, fill_value)
+        draw_path(state, fill_value)
         cost += state.cost
 
     print("Moves used: " + str(len(seq) - 1))
