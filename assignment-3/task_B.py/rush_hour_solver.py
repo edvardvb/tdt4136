@@ -288,10 +288,12 @@ if solved:
     #print('\n ***** NOW PRINTING SOLUTION ***** \n')
 
     #Print moves in both textual and GUI form
+    reversed_seq = list(reversed(seq))
+    #draw_path(reversed_seq, rec_size, fill_value)
     cost = 0
-    for state in reversed(seq): 
+    for state in reversed_seq:
         #print(state)
-        draw_path(str(state), rec_size, fill_value)
+        draw_path(state, rec_size, fill_value)
         cost += state.cost
 
     print("Moves used: " + str(len(seq) - 1))

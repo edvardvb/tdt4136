@@ -1,36 +1,29 @@
 from tkinter import *
 
-def draw_path(s, rec_size, fill_value):
+def draw_path(state, rec_size, fill_value):
     master = Tk()
     w = Canvas(master, width=6*rec_size, height=6*rec_size)
 
-    x = 0
-    y = 0
-    for symbol in s:
-        if symbol == '\n':
-            y += 1
-            x = 0
-        else:
-            if symbol == '0': color = 'lawn green'
-            elif symbol == fill_value: color = 'white'
-            elif symbol == '1': color = 'salmon'
-            elif symbol == '2': color = 'royal blue'
-            elif symbol == '3': color = 'deep pink'
-            elif symbol == '4': color = 'tomato'
-            elif symbol == '5': color = 'pale green'
-            elif symbol == '6': color = 'light sky blue'
-            elif symbol == '7': color = 'gold'
-            elif symbol == '8': color = 'wheat'
-            elif symbol == '9': color = 'dark violet'
-            elif symbol == '10': color = 'snow 2'
-            elif symbol == '11': color = 'seashell'
-            elif symbol == '12': color = 'medium purple'
+    for y, row in enumerate(state.board):
+        for x, value in enumerate(row):
+            if value == 0: color = 'lawn green'
+            elif value == fill_value: color = 'white'
+            elif value == 1: color = 'salmon'
+            elif value == 2: color = 'royal blue'
+            elif value == 3: color = 'deep pink'
+            elif value == 4: color = 'tomato'
+            elif value == 5: color = 'pale green'
+            elif value == 6: color = 'light sky blue'
+            elif value == 7: color = 'gold'
+            elif value == 8: color = 'wheat'
+            elif value == 9: color = 'dark violet'
+            elif value == 10: color = 'light sea green'
+            elif value == 11: color = 'chocolate'
+            elif value == 12: color = 'medium purple'
             else: color = 'light sky blue'
 
             w.create_rectangle(x*rec_size, y*rec_size, \
                     x*rec_size + rec_size, y*rec_size + rec_size, fill=color)
-
-            x += 1
 
     w.pack()
     master.mainloop()
