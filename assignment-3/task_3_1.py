@@ -4,7 +4,7 @@ lines of code. In addition add vizualization of closed and open nodes
 from GUI import draw_path
 """
 
-import GUI_3_task_1
+import GUI_3_1
 
 class Cell:
     """
@@ -162,6 +162,6 @@ if three_in_one(open_nodes, closed_nodes, cells, input('A, BFS or dijkstra: ')):
         cell = cell.parent
     lines = '\n'.join(lines)
     print(lines)
-    GUI_3_task_1.draw_path(lines, width, height, open_nodes, closed_nodes)
+    GUI_3_1.draw_path(lines, width, height, open_nodes, closed_nodes)
 else:
     print('Failed')
