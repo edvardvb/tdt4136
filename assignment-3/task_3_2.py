@@ -2,7 +2,7 @@
 Produces a simple visualisation of the shortest path from A to B
 for boards 1-1 to 1-4, using my own implementation of the a*-algorithm.
 """
-from GUI_3_task_2 import draw_path
+from GUI_3_2 import draw_path
 from math import sqrt
 
 
