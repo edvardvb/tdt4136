@@ -90,3 +90,7 @@ ENV/
 
 #pycharm
 .idea/
+
+# Deliverables
+assignment-3/assignment-3-code.zip
+assignment-3/images/task_3_images.zip
