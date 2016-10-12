@@ -156,7 +156,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
 
     def getMinChildren(self, gameState, counter):
         val = (float('inf'), None)
-        current_ghost = counter % gameState
+        current_ghost = counter % gameState.getNumAgents()
         actions = gameState.getLegalActions(current_ghost)
         if len(actions) == 0:
             return (self.evaluationFunction(gameState), None)
@@ -193,6 +193,8 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
     def getMaxChildren(self, gameState, counter, alpha, beta):
         a = alpha
         b = beta
+        # ^ Might be unnecessary. This is just to make sure they
+        #  are stored properly, had some issues during development.
         val = (-float('inf'), None)
         actions = gameState.getLegalActions(0)
         if len(actions) == 0:
