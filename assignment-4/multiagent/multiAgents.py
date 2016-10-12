@@ -176,8 +176,54 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         """
           Returns the minimax action using self.depth and self.evaluationFunction
         """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return self.value(gameState, 0, -float('inf'), float('inf'))[1]
+
+
+
+    def value(self, gameState, counter, alpha, beta):
+        if counter == self.depth * gameState.getNumAgents()\
+                or gameState.isWin()\
+                or gameState.isLose():
+            return (self.evaluationFunction(gameState), None)
+        if counter % gameState.getNumAgents() == 0:
+            return self.getMaxChildren(gameState, counter, alpha, beta)
+        else:
+            return self.getMinChildren(gameState, counter, alpha, beta)
+
+    def getMaxChildren(self, gameState, counter, alpha, beta):
+        a = alpha
+        b = beta
+        val = (-float('inf'), None)
+        actions = gameState.getLegalActions(0)
+        if len(actions) == 0:
+            return (self.evaluationFunction(gameState), None)
+        for action in actions:
+            successor = gameState.generateSuccessor(0, action)
+            successor_value = self.value(successor, counter+1, a, b)
+            if successor_value[0] > val[0]:
+                val = (successor_value[0], action)
+            if val[0] >  b:
+                return val
+            a = max(a, val[0])
+        return val
+
+    def getMinChildren(self, gameState, counter, alpha, beta):
+        a = alpha
+        b = beta
+        val = (float('inf'), None)
+        current_ghost = counter % gameState.getNumAgents()
+        actions = gameState.getLegalActions(current_ghost)
+        if len(actions) == 0:
+            return (self.evaluationFunction(gameState), None)
+        for action in actions:
+            successor = gameState.generateSuccessor(current_ghost, action)
+            successor_value = self.value(successor, counter+1, a, b)
+            if successor_value[0] < val[0]:
+               val = (successor_value[0], action)
+            if val[0] < a:
+                return val
+            b = min(b, val[0])
+        return val
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
     """
