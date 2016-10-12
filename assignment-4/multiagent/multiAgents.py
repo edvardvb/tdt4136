@@ -156,11 +156,12 @@ class MinimaxAgent(MultiAgentSearchAgent):
 
     def getMinChildren(self, gameState, counter):
         val = (float('inf'), None)
-        actions = gameState.getLegalActions(counter % gameState.getNumAgents())
+        current_ghost = counter % gameState
+        actions = gameState.getLegalActions(current_ghost)
         if len(actions) == 0:
             return (self.evaluationFunction(gameState), None)
         for action in actions:
-            successor = gameState.generateSuccessor(counter % gameState.getNumAgents(), action)
+            successor = gameState.generateSuccessor(current_ghost, action)
             successor_value = self.value(successor, counter+1)
             if successor_value[0] < val[0]:
                val = (successor_value[0], action)
